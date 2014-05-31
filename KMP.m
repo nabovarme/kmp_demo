@@ -166,6 +166,8 @@
 	
 }
 
+#pragma mark - KMP Decoder
+
 -(void)decodeFrame:(NSData *)theFrame {
     self.frameReceived = NO;
     [self.frame appendData:theFrame];
