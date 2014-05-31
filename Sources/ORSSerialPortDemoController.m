@@ -97,7 +97,7 @@
     [self.kmp decodeFrame:data.mutableCopy];
     if (self.kmp.frameReceived) {
         NSString *string = self.kmp.responseData.description;
-        if ([string length] == 0) return;
+        //if ([string length] == 0) return;
         self.responseTextField.stringValue = [self.kmp.responseData[@"value"] stringValue];
         [self.receivedDataTextView.textStorage.mutableString appendString:string];
         [self.receivedDataTextView setNeedsDisplay:YES];

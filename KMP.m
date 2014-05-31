@@ -376,8 +376,63 @@
 }
 
 -(NSData *)kmpByteUnstuff:(NSData *)theData {
-    NSLog(@"unstuffed %@", theData);
-    return theData;
+    unsigned char *bytes = (unsigned char *)theData.bytes;
+    unsigned long len = theData.length;
+    
+    unsigned char unstuffedBytes[len];
+    unsigned long unstuffedLen = 0;
+    
+    unsigned long i;
+    unsigned j = 0;
+    for (i = 0; i < len; i++) {
+        if (bytes[i] == 0x1b) {          // byte stuffing special char
+            if (bytes[i + 1] == 0x7f) {
+                unstuffedBytes[j++] = 0x80;
+                unstuffedLen++;
+                i++;
+                NSLog(@"unstuffed 0x80");
+            }
+        }
+        else if (bytes[i] == 0x1b) {     // byte stuffing special char
+            if (bytes[i + 1] == 0xbf) {
+                unstuffedBytes[j++] = 0x40;
+                unstuffedLen++;
+                i++;
+                NSLog(@"unstuffed 0x40");
+            }
+        }
+        else if (bytes[i] == 0x1b) {     // byte stuffing special char
+            if (bytes[i + 1] == 0xf2) {
+                unstuffedBytes[j++] = 0x0d;
+                unstuffedLen++;
+                i++;
+                NSLog(@"unstuffed 0x0d");
+            }
+        }
+        else if (bytes[i] == 0x1b) {     // byte stuffing special char
+            if (bytes[i + 1] == 0xf9) {
+                unstuffedBytes[j++] = 0x06;
+                unstuffedLen++;
+                i++;
+                NSLog(@"unstuffed 0x06");
+            }
+        }
+        else if (bytes[i] == 0x1b) {     // byte stuffing special char
+            if (bytes[i + 1] == 0xe4) {
+                unstuffedBytes[j++] = 0x1b;
+                unstuffedLen++;
+                i++;
+                NSLog(@"unstuffed 0x1b");
+            }
+        }
+        else {
+            unstuffedBytes[j++] = bytes[i];
+            unstuffedLen++;
+        }
+    }
+    
+    NSData *unstuffedData = [NSData dataWithBytes:unstuffedBytes length:unstuffedLen];
+    return unstuffedData;
 }
 
 @end
