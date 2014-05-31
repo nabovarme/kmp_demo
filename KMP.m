@@ -138,13 +138,8 @@
     NSMutableData *data = [[NSMutableData alloc] initWithBytes:(unsigned char[]){0x3f, 0x10} length:2];
     [data appendBytes:(unsigned char[]){0x01} length:1];  // number of registers
     
-//    NSMutableData *kmpDateTime = [[NSMutableData alloc] init];
-//    [kmpDateTime appendData:[self kmpDateWithDate:theDate]];
-//    [kmpDateTime appendData:[self kmpTimeWithDate:theDate]];
-//    [data appendData:kmpDateTime];
     unsigned char registerHigh = (unsigned char)(theRegister.intValue >> 8);
     unsigned char registerLow = (unsigned char)(theRegister.intValue & 0xff);
-    
     [data appendData:[NSData dataWithBytes:(unsigned char[]){registerHigh, registerLow} length:2]];
     NSLog(@"%@", data);
     
@@ -158,11 +153,50 @@
     [self.frame appendData:data];
     [self.frame appendData:[[NSMutableData alloc] initWithBytes:(unsigned char[]){0x0d} length:1]];
     NSLog(@"%@", self.frame);
-    
-	
 }
 
--(void)putRegister {
+-(void)putRegister:(NSNumber *)theRegister withPassword:(NSNumber *)thePassword andValue:(NSNumber *)theValue {
+    // start byte
+    self.frame = [[NSMutableData alloc] initWithBytes:(unsigned char[]){0x80} length:1];
+    
+    // data
+    NSMutableData *data = [[NSMutableData alloc] initWithBytes:(unsigned char[]){0x3f, 0x11} length:2];
+//    [data appendBytes:(unsigned char[]){0x01} length:1];  // number of registers
+    
+    unsigned char passwordHigh = (unsigned char)(thePassword.intValue >> 8);
+    unsigned char passwordLow = (unsigned char)(thePassword.intValue & 0xff);
+    [data appendData:[NSData dataWithBytes:(unsigned char[]){passwordHigh, passwordLow} length:2]];
+
+    unsigned char registerHigh = (unsigned char)(theRegister.intValue >> 8);
+    unsigned char registerLow = (unsigned char)(theRegister.intValue & 0xff);
+    [data appendData:[NSData dataWithBytes:(unsigned char[]){registerHigh, registerLow} length:2]];
+
+    // unit
+    [data appendData:[NSData dataWithBytes:(unsigned char[]){0x2e} length:1]];
+
+    // number of bytes - allways 4
+    [data appendData:[NSData dataWithBytes:(unsigned char[]){0x04} length:1]];
+    
+    // sign and exponent
+    [data appendData:[NSData dataWithBytes:(unsigned char[]){0x00} length:1]];
+
+    // value
+    int32_t value = theValue.intValue;
+    [data appendData:[NSData dataWithBytes:(unsigned char[]){value >> 24, value >> 16, value >> 8, value} length:4]];
+
+    NSLog(@"%@", data);
+    
+    // append crc 16 to data
+    [data appendData:[self crc16ForData:data]];
+    
+    // stuff data
+    data = [[self kmpByteStuff:data] mutableCopy];
+    
+    // create frame
+    [self.frame appendData:data];
+    [self.frame appendData:[[NSMutableData alloc] initWithBytes:(unsigned char[]){0x0d} length:1]];
+    NSLog(@"%@", self.frame);
+    
 	
 }
 

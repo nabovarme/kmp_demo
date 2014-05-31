@@ -66,8 +66,8 @@
 //    [self.kmp getType];
 //    [self.kmp getSerialNo];
 //    [self.kmp setClock:[NSDate date]];
-//    [self.kmp getRegister:@0x03EC];
     [self.kmp getRegister:[NSNumber numberWithInteger:self.sendTextField.integerValue]];
+//    [self.kmp putRegister:@0x03ec withPassword:@12345 andValue:@0x00ff];
     [self.serialPort sendData:self.kmp.frame];
     self.kmp.frame = [[NSMutableData alloc] initWithBytes:nil length:0];
 

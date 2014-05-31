@@ -21,7 +21,8 @@
 -(void)getSerialNo;
 -(void)setClock:(NSDate *)theDate;
 -(void)getRegister:(NSNumber *)theRegister;
--(void)putRegister;
+-(void)putRegister:(NSNumber *)theRegister withPassword:(NSNumber *)thePassword andValue:(NSNumber *)theValue;
+
 
 -(void)decodeFrame:(NSData *)theFrame;
 
