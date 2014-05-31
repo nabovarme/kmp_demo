@@ -95,10 +95,13 @@
 - (void)serialPort:(ORSSerialPort *)serialPort didReceiveData:(NSData *)data
 {
     [self.kmp decodeFrame:data.mutableCopy];
-	NSString *string = self.kmp.responseData.description;
-	if ([string length] == 0) return;
-	[self.receivedDataTextView.textStorage.mutableString appendString:string];
-	[self.receivedDataTextView setNeedsDisplay:YES];
+    if (self.kmp.frameReceived) {
+        NSString *string = self.kmp.responseData.description;
+        if ([string length] == 0) return;
+        self.responseTextField.stringValue = [self.kmp.responseData[@"value"] stringValue];
+        [self.receivedDataTextView.textStorage.mutableString appendString:string];
+        [self.receivedDataTextView setNeedsDisplay:YES];
+    }
 }
 
 - (void)serialPortWasRemovedFromSystem:(ORSSerialPort *)serialPort;

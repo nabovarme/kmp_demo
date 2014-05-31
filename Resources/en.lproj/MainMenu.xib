@@ -687,7 +687,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="577">
-                        <rect key="frame" x="20" y="448" width="373" height="22"/>
+                        <rect key="frame" x="20" y="522" width="373" height="22"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="578">
                             <font key="font" metaFont="system"/>
@@ -696,7 +696,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" id="579">
-                        <rect key="frame" x="395" y="442" width="71" height="32"/>
+                        <rect key="frame" x="395" y="516" width="71" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Send" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="580">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -707,7 +707,7 @@
                         </connections>
                     </button>
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="584">
-                        <rect key="frame" x="20" y="83" width="440" height="328"/>
+                        <rect key="frame" x="20" y="46" width="440" height="328"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="4EM-9w-P8G">
                             <rect key="frame" x="1" y="1" width="438" height="326"/>
@@ -751,6 +751,41 @@
                             </binding>
                         </connections>
                     </button>
+                    <textField verticalHuggingPriority="750" id="1cD-Fl-NYc">
+                        <rect key="frame" x="20" y="467" width="440" height="22"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="iAn-PS-Ye7">
+                            <numberFormatter key="formatter" formatterBehavior="custom10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="Shq-ub-TGW"/>
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box autoresizesSubviews="NO" verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="CRg-Bb-dN7">
+                        <rect key="frame" x="20" y="575" width="440" height="5"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="F1W-mN-azt">
+                        <rect key="frame" x="18" y="497" width="39" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Value" id="p3B-1j-KnJ">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="cED-xF-PlY">
+                        <rect key="frame" x="18" y="552" width="73" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Register ID" id="jXB-mn-ht8">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
         </window>
@@ -766,6 +801,7 @@
             <connections>
                 <outlet property="openCloseButton" destination="690" id="692"/>
                 <outlet property="receivedDataTextView" destination="585" id="625"/>
+                <outlet property="responseTextField" destination="1cD-Fl-NYc" id="sAS-3t-vBp"/>
                 <outlet property="sendTextField" destination="577" id="624"/>
             </connections>
         </customObject>

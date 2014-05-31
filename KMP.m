@@ -11,6 +11,7 @@
 @implementation KMP
 
 @synthesize frame;
+@synthesize frameReceived;
 
 @synthesize responseData;
 @synthesize crc16Table;
@@ -23,6 +24,7 @@
     
     self.frame = [[NSMutableData alloc] init];
     self.responseData = [[NSMutableDictionary alloc] init];
+    self.frameReceived = NO;
     
     self.crc16Table = @[
                         @0x0000, @0x1021, @0x2042, @0x3063, @0x4084, @0x50a5, @0x60c6, @0x70e7,
@@ -165,6 +167,7 @@
 }
 
 -(void)decodeFrame:(NSData *)theFrame {
+    self.frameReceived = NO;
     [self.frame appendData:theFrame];
     if ([theFrame isEqualToData:[[NSData alloc] initWithBytes:(unsigned char[]){0x0d} length:1]]) {
         // end of data - get params from frame
@@ -213,39 +216,49 @@
         }
         else if (cid == 0x10) {    // GetRegister
             NSLog(@"GetRegister");
-            range = NSMakeRange(2, 2);
-            bytes = (unsigned char *)[[data subdataWithRange:range] bytes];
-            unsigned int rid = (bytes[0] << 8) + bytes[1];
-            [self.responseData setObject:[NSNumber numberWithUnsignedInt:rid] forKey:@"rid"];
+            if (data.length > 2) {
+                range = NSMakeRange(2, 2);
+                bytes = (unsigned char *)[[data subdataWithRange:range] bytes];
+                int16_t rid = (bytes[0] << 8) + bytes[1];
+                [self.responseData setObject:[NSNumber numberWithUnsignedInt:rid] forKey:@"rid"];
 
-            range = NSMakeRange(4, 1);
-            bytes = (unsigned char *)[[data subdataWithRange:range] bytes];
-            unsigned int unit = bytes[0];
-            [self.responseData setObject:[NSNumber numberWithUnsignedInt:unit] forKey:@"unit"];
+                range = NSMakeRange(4, 1);
+                bytes = (unsigned char *)[[data subdataWithRange:range] bytes];
+                unsigned int unit = bytes[0];
+                [self.responseData setObject:[NSNumber numberWithUnsignedInt:unit] forKey:@"unit"];
 
-            range = NSMakeRange(5, 1);
-            bytes = (unsigned char *)[[data subdataWithRange:range] bytes];
-            unsigned int length = bytes[0];
-            [self.responseData setObject:[NSNumber numberWithUnsignedInt:length] forKey:@"length"];
+                range = NSMakeRange(5, 1);
+                bytes = (unsigned char *)[[data subdataWithRange:range] bytes];
+                unsigned int length = bytes[0];
+                [self.responseData setObject:[NSNumber numberWithUnsignedInt:length] forKey:@"length"];
             
-            range = NSMakeRange(6, 1);
-            bytes = (unsigned char *)[[data subdataWithRange:range] bytes];
-            unsigned int siEx = bytes[0];
-            [self.responseData setObject:[NSNumber numberWithUnsignedInt:siEx] forKey:@"siEx"];
+                range = NSMakeRange(6, 1);
+                bytes = (unsigned char *)[[data subdataWithRange:range] bytes];
+                unsigned int siEx = bytes[0];
+                [self.responseData setObject:[NSNumber numberWithUnsignedInt:siEx] forKey:@"siEx"];
             
-            range = NSMakeRange(7, 4);
-            [self.responseData setObject:[data subdataWithRange:range] forKey:@"value"];
+                range = NSMakeRange(7, 4);
+                bytes = (unsigned char *)[[data subdataWithRange:range] bytes];
+                int32_t value = (bytes[0] << 24) + (bytes[1] << 16) + (bytes[2] << 8) + bytes[3];
+                //[self.responseData setObject:[data subdataWithRange:range] forKey:@"value"];
+                [self.responseData setObject:[NSNumber numberWithInt:value] forKey:@"value"];
+            }
+            else {
+                NSLog(@"No registers in reply");
+            }
         }
         else if (cid == 0x11) {    // PutRegister
             NSLog(@"PutRegister");
             range = NSMakeRange(2, data.length - 2);
             NSLog(@"%@", [data subdataWithRange:range]);
         }
+        self.frameReceived = YES;
         CFShow((__bridge CFTypeRef)(self.responseData));
 
     }
     else if ([theFrame isEqualToData:[[NSData alloc] initWithBytes:(unsigned char[]){0x06} length:1]]) {
         NSLog(@"SetClock no CRC");      // SetClock
+        self.frameReceived = YES;
         CFShow((__bridge CFTypeRef)(self.responseData));
     }
 }

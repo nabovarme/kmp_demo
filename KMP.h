@@ -11,6 +11,7 @@
 @interface KMP : NSObject;
 
 @property NSMutableData *frame;
+@property BOOL frameReceived;
 
 @property NSMutableDictionary *responseData;
 @property NSArray *crc16Table;

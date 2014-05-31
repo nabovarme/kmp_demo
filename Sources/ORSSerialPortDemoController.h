@@ -39,7 +39,7 @@
 
 - (IBAction)send:(id)sender;
 - (IBAction)openOrClosePort:(id)sender;
-
+@property (unsafe_unretained) IBOutlet NSTextField *responseTextField;
 @property (unsafe_unretained) IBOutlet NSTextField *sendTextField;
 @property (unsafe_unretained) IBOutlet NSTextView *receivedDataTextView;
 @property (unsafe_unretained) IBOutlet NSButton *openCloseButton;
