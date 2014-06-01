@@ -16,6 +16,7 @@
 		D685E0ED19382296000B5C19 /* ORSSerialPort.m in Sources */ = {isa = PBXBuildFile; fileRef = D685E0EC19382296000B5C19 /* ORSSerialPort.m */; };
 		D685E0F0193822A1000B5C19 /* ORSSerialPortManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D685E0EF193822A1000B5C19 /* ORSSerialPortManager.m */; };
 		D685E0F31938244A000B5C19 /* KMP.m in Sources */ = {isa = PBXBuildFile; fileRef = D685E0F21938244A000B5C19 /* KMP.m */; };
+		D6C32E00193AC187006E015D /* KMPUnitsTable.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6C32DFF193AC187006E015D /* KMPUnitsTable.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		D685E0EF193822A1000B5C19 /* ORSSerialPortManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ORSSerialPortManager.m; path = Source/ORSSerialPortManager.m; sourceTree = SOURCE_ROOT; };
 		D685E0F11938244A000B5C19 /* KMP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMP.h; sourceTree = SOURCE_ROOT; };
 		D685E0F21938244A000B5C19 /* KMP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMP.m; sourceTree = SOURCE_ROOT; };
+		D6C32DFF193AC187006E015D /* KMPUnitsTable.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = KMPUnitsTable.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -86,6 +88,7 @@
 				9D66D83C159BCC6400EE6D09 /* ORSSerialPortDemoController.m */,
 				D685E0F11938244A000B5C19 /* KMP.h */,
 				D685E0F21938244A000B5C19 /* KMP.m */,
+				D6C32DFF193AC187006E015D /* KMPUnitsTable.plist */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -138,7 +141,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ORS;
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "SKULP Industries";
 			};
 			buildConfigurationList = 9D66D808159BCAB800EE6D09 /* Build configuration list for PBXProject "ORSSerialPortCocoaDemo" */;
@@ -163,6 +166,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6C32E00193AC187006E015D /* KMPUnitsTable.plist in Resources */,
 				9D66D81D159BCAB800EE6D09 /* InfoPlist.strings in Resources */,
 				9D66D823159BCAB900EE6D09 /* Credits.rtf in Resources */,
 				9D66D829159BCAB900EE6D09 /* MainMenu.xib in Resources */,
@@ -219,7 +223,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -246,7 +249,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -266,6 +268,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sources/ORSSerialPortCocoaDemo-Prefix.pch";
 				INFOPLIST_FILE = "Resources/ORSSerialPortCocoaDemo-Info.plist";
@@ -279,6 +282,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sources/ORSSerialPortCocoaDemo-Prefix.pch";
 				INFOPLIST_FILE = "Resources/ORSSerialPortCocoaDemo-Info.plist";

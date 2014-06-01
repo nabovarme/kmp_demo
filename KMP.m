@@ -84,6 +84,10 @@
                                 @0x32: @"date3",
                                 @0x33: @"number",
                                 @0x34: @"bar"};
+    
+    //[self.registerUnitsTable writeToFile:@"/tmp/foo.plist" atomically:YES];
+    //NSString *myPlistFilePath = [[NSBundle mainBundle] pathForResource: @"KMPUnitsTable" ofType: @"plist"];
+    //self.registerUnitsTable = [NSDictionary dictionaryWithContentsOfFile: myPlistFilePath];
 
     return self;
 }
@@ -420,7 +424,7 @@
     unsigned long i;
     for (i = 0; i < len; i++) {
         if (bytes[i] == 0x80) {
-            [stuffedData appendBytes:(unsigned char[]){0x1b, 0x7f} length:2];
+            [stuffedData appendBytes:(unsigned char[]){0x1b, 0x7f} length:2];   // 0x7f = 0x40^0xff
             NSLog(@"0x80 stuffed");
         }
         else if (bytes[i] == 0x40) {
@@ -457,44 +461,10 @@
     unsigned j = 0;
     for (i = 0; i < len; i++) {
         if (bytes[i] == 0x1b) {          // byte stuffing special char
-            if (bytes[i + 1] == 0x7f) {
-                unstuffedBytes[j++] = 0x80;
-                unstuffedLen++;
-                i++;
-                NSLog(@"unstuffed 0x80");
-            }
-        }
-        else if (bytes[i] == 0x1b) {     // byte stuffing special char
-            if (bytes[i + 1] == 0xbf) {
-                unstuffedBytes[j++] = 0x40;
-                unstuffedLen++;
-                i++;
-                NSLog(@"unstuffed 0x40");
-            }
-        }
-        else if (bytes[i] == 0x1b) {     // byte stuffing special char
-            if (bytes[i + 1] == 0xf2) {
-                unstuffedBytes[j++] = 0x0d;
-                unstuffedLen++;
-                i++;
-                NSLog(@"unstuffed 0x0d");
-            }
-        }
-        else if (bytes[i] == 0x1b) {     // byte stuffing special char
-            if (bytes[i + 1] == 0xf9) {
-                unstuffedBytes[j++] = 0x06;
-                unstuffedLen++;
-                i++;
-                NSLog(@"unstuffed 0x06");
-            }
-        }
-        else if (bytes[i] == 0x1b) {     // byte stuffing special char
-            if (bytes[i + 1] == 0xe4) {
-                unstuffedBytes[j++] = 0x1b;
-                unstuffedLen++;
-                i++;
-                NSLog(@"unstuffed 0x1b");
-            }
+            unstuffedBytes[j++] = bytes[i + 1] ^ 0xff;
+            unstuffedLen++;
+            i++;
+            NSLog(@"unstuffed %02x%02x to %02x", bytes[i - 1], bytes[i], unstuffedBytes[j - 1]);
         }
         else {
             unstuffedBytes[j++] = bytes[i];
