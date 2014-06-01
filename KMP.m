@@ -15,6 +15,7 @@
 
 @synthesize responseData;
 @synthesize crc16Table;
+@synthesize registerUnitsTable;
 
 
 #pragma mark - Init
@@ -60,6 +61,29 @@
                         @0xef1f, @0xff3e, @0xcf5d, @0xdf7c, @0xaf9b, @0xbfba, @0x8fd9, @0x9ff8, 
                         @0x6e17, @0x7e36, @0x4e55, @0x5e74, @0x2e93, @0x3eb2, @0x0ed1, @0x1ef0
     ];
+    
+    self.registerUnitsTable = @{@0x01: @"Wh",
+                                @0x02: @"kWh",
+                                @0x03: @"MWh",
+                                @0x08: @"Gj",
+                                @0x0c: @"Gcal",
+                                @0x16: @"kW",
+                                @0x17: @"MW",
+                                @0x25: @"C",
+                                @0x26: @"K",
+                                @0x27: @"l",
+                                @0x28: @"m3",
+                                @0x29: @"l/h",
+                                @0x2a: @"m3/h",
+                                @0x2b: @"m3xC",
+                                @0x2c: @"ton",
+                                @0x2d: @"ton/h",
+                                @0x2e: @"h",
+                                @0x2f: @"clock",
+                                @0x30: @"date1",
+                                @0x32: @"date3",
+                                @0x33: @"number",
+                                @0x34: @"bar"};
 
     return self;
 }

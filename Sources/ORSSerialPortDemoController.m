@@ -98,8 +98,7 @@
     if (self.kmp.frameReceived) {
         //if ([string length] == 0) return;
         self.responseTextField.stringValue = [[self.kmp numberForKmpNumber:self.kmp.responseData[@"value"] andSiEx:self.kmp.responseData[@"siEx"]] stringValue];
-        self.unitTextField.stringValue = [self.kmp.responseData[@"unit"] stringValue];
-        self.siExTextField.stringValue = [self.kmp.responseData[@"siEx"] stringValue];
+        self.unitTextField.stringValue = [self.kmp.registerUnitsTable objectForKey:self.kmp.responseData[@"unit"]];
 
         NSString *string = self.kmp.responseData.description;
         [self.receivedDataTextView.textStorage.mutableString appendString:string];
