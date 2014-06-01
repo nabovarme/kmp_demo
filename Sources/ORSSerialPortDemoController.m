@@ -96,9 +96,12 @@
 {
     [self.kmp decodeFrame:data.mutableCopy];
     if (self.kmp.frameReceived) {
-        NSString *string = self.kmp.responseData.description;
         //if ([string length] == 0) return;
-        self.responseTextField.stringValue = [self.kmp.responseData[@"value"] stringValue];
+        self.responseTextField.stringValue = [[self.kmp numberForKmpNumber:self.kmp.responseData[@"value"] andSiEx:self.kmp.responseData[@"siEx"]] stringValue];
+        self.unitTextField.stringValue = [self.kmp.responseData[@"unit"] stringValue];
+        self.siExTextField.stringValue = [self.kmp.responseData[@"siEx"] stringValue];
+
+        NSString *string = self.kmp.responseData.description;
         [self.receivedDataTextView.textStorage.mutableString appendString:string];
         [self.receivedDataTextView setNeedsDisplay:YES];
     }

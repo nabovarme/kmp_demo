@@ -39,6 +39,8 @@
 
 - (IBAction)send:(id)sender;
 - (IBAction)openOrClosePort:(id)sender;
+@property (unsafe_unretained) IBOutlet NSTextField *siExTextField;
+@property (unsafe_unretained) IBOutlet NSTextField *unitTextField;
 @property (unsafe_unretained) IBOutlet NSTextField *responseTextField;
 @property (unsafe_unretained) IBOutlet NSTextField *sendTextField;
 @property (unsafe_unretained) IBOutlet NSTextView *receivedDataTextView;

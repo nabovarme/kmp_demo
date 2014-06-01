@@ -3,7 +3,7 @@
 //  MeterLogger
 //
 //  Created by stoffer on 28/05/14.
-//  Copyright (c) 2014 9Lab. All rights reserved.
+//  Copyright (c) 2014 stoffer@skulp.net. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -27,6 +27,7 @@
 -(void)decodeFrame:(NSData *)theFrame;
 
 -(NSData *)crc16ForData:(NSData *)theData;
+-(NSNumber *)numberForKmpNumber:(NSNumber *)theNumber andSiEx:(NSNumber *)theSiEx;
 
 -(NSData *)kmpDateWithDate:(NSDate *)theDate;
 -(NSData *)kmpTimeWithDate:(NSDate *)theDate;
@@ -36,6 +37,5 @@
 
 -(NSData *)kmpByteStuff:(NSData *)theData;
 -(NSData *)kmpByteUnstuff:(NSData *)theData;
-
 
 @end

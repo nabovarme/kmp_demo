@@ -3,7 +3,7 @@
 //  MeterLogger
 //
 //  Created by stoffer on 28/05/14.
-//  Copyright (c) 2014 9Lab. All rights reserved.
+//  Copyright (c) 2014 stoffer@skulp.net. All rights reserved.
 //
 
 #import "KMP.h"
@@ -316,6 +316,17 @@
     return [[NSData alloc] initWithBytes:(unsigned char[]){crcHigh, crcLow} length:2];
 }
 
+-(NSNumber *)numberForKmpNumber:(NSNumber *)theNumber andSiEx:(NSNumber *)theSiEx {
+    int32_t number = theNumber.intValue;
+    int8_t siEx = theSiEx.intValue & 0xff;
+    int8_t signI = (siEx & 0x80) >> 7;
+    int8_t signE = (siEx & 0x40) >> 6;
+    int8_t exponent = (siEx & 0x3f);
+    float res = powf(-1, (float)signI) * number * powf(10, (powf(-1, (float)signE) * exponent));
+    NSLog(@"%f", res);
+    return [NSNumber numberWithFloat:res];
+}
+
 -(NSData *)kmpDateWithDate:(NSDate *)theDate {
     NSCalendar* calendar = [NSCalendar currentCalendar];
     NSDateComponents* components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:theDate];
@@ -470,5 +481,7 @@
     NSData *unstuffedData = [NSData dataWithBytes:unstuffedBytes length:unstuffedLen];
     return unstuffedData;
 }
+
+
 
 @end
