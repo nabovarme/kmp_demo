@@ -423,25 +423,9 @@
     
     unsigned long i;
     for (i = 0; i < len; i++) {
-        if (bytes[i] == 0x80) {
-            [stuffedData appendBytes:(unsigned char[]){0x1b, 0x7f} length:2];   // 0x7f = 0x40^0xff
+        if ((bytes[i] == 0x80) || (bytes[i] == 0x40) || (bytes[i] == 0x0d) || (bytes[i] == 0x06) || (bytes[i] == 0x1b)) {
+            [stuffedData appendBytes:(unsigned char[]){0x1b, bytes[i] ^ 0xff} length:2];
             NSLog(@"0x80 stuffed");
-        }
-        else if (bytes[i] == 0x40) {
-            [stuffedData appendBytes:(unsigned char[]){0x1b, 0xbf} length:2];
-            NSLog(@"0x40 stuffed");
-        }
-        else if (bytes[i] == 0x0d) {
-            [stuffedData appendBytes:(unsigned char[]){0x1b, 0xf2} length:2];
-            NSLog(@"0x0d stuffed");
-        }
-        else if (bytes[i] == 0x06) {
-            [stuffedData appendBytes:(unsigned char[]){0x1b, 0xf9} length:2];
-            NSLog(@"0x06 stuffed");
-        }
-        else if (bytes[i] == 0x1b) {
-            [stuffedData appendBytes:(unsigned char[]){0x1b, 0xe4} length:2];
-            NSLog(@"0x1b stuffed");
         }
         else {
             [stuffedData appendBytes:(bytes + i) length:1];
