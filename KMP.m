@@ -85,10 +85,6 @@
                                 @0x33: @"number",
                                 @0x34: @"bar"};
     
-    //[self.registerUnitsTable writeToFile:@"/tmp/foo.plist" atomically:YES];
-    //NSString *myPlistFilePath = [[NSBundle mainBundle] pathForResource: @"KMPUnitsTable" ofType: @"plist"];
-    //self.registerUnitsTable = [NSDictionary dictionaryWithContentsOfFile: myPlistFilePath];
-
     return self;
 }
 
@@ -351,8 +347,12 @@
     int8_t signE = (siEx & 0x40) >> 6;
     int8_t exponent = (siEx & 0x3f);
     float res = powf(-1, (float)signI) * number * powf(10, (powf(-1, (float)signE) * exponent));
-    NSLog(@"%f", res);
-    return [NSNumber numberWithFloat:res];
+    if ((res - (int)res) == 0.0) {
+        return [NSNumber numberWithInt:(int32_t)res];
+    }
+    else {
+        return [NSNumber numberWithFloat:res];
+    }
 }
 
 -(NSData *)kmpDateWithDate:(NSDate *)theDate {
